@@ -63,6 +63,9 @@ a {
 .btn:hover {
   cursor: pointer;
 }
+.rb-5 {
+  border-radius: 5px !important;
+}
 .btn-primario {
   background-color: var(--gris2);
   color: var(--blanco);
@@ -86,6 +89,15 @@ a {
   display: block;
   background-color: transparent;
 }
+.btn-eliminar {
+  background-color: rgba(255, 178, 178, .4);
+  color: var(--gris3);
+}
+.btn-eliminar:hover {
+  background: red;
+  color:#ffffff;
+}
+
 
 @media (min-width: 768px) {
   .contenedor-app {
