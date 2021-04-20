@@ -5,7 +5,7 @@ const ItemProject = ({project}) => {
         <li>
             <button
                 type="button"
-                className="btn btn-blank"
+                className="btn btn-blank" 
             >{project.projectName}</button>
         </li>
      );

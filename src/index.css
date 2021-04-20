@@ -63,8 +63,8 @@ a {
 .btn:hover {
   cursor: pointer;
 }
-.rb-5 {
-  border-radius: 5px !important;
+.br-5 {
+  border-radius: .5rem !important;
 }
 .btn-primario {
   background-color: var(--gris2);
@@ -246,7 +246,7 @@ aside  {
   font-family: var(--textFont);
   font-size: 1rem;
   padding: .5rem;
-  border-radius: .5rem;
+  border-radius: .5rem!important;
   cursor: pointer;
   border: none;
 }
@@ -270,7 +270,7 @@ aside  {
 .error {
   max-width: 600px;
   margin: 2rem auto 0 auto;
-  background-color: rgb(170, 0, 0);
+  background-color: red;
   color: var(--blanco);
 }
 
@@ -363,6 +363,6 @@ aside  {
   color: rgb(2, 103, 2);
 }
 .alerta-error {
-  background-color: rgb(230, 78, 78);
+  background-color: red;
   color: var(--blanco);
 }

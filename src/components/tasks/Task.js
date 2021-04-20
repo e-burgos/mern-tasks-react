@@ -19,11 +19,11 @@ const Task = ({task}) => {
             <div className="acciones">
                 <button
                     type="button"
-                    className="btn btn-primario rb-5"
+                    className="btn btn-primario br-5"
                 >Editar</button>
                 <button
                     type="button"
-                    className="btn btn-secundario rb-5"
+                    className="btn btn-secundario br-5"
                 >Eliminar</button>
             </div>
         </li>

@@ -5,7 +5,7 @@ const NewProject = () => {
 
     // Obtener el state del formulario 
     const projectsContext = useContext(projectContext);
-    const { projectForm, showProjectForm  } = projectsContext;
+    const { projectForm, errorForm, showProjectForm, createProject, showErrorForm  } = projectsContext;
 
     // State para proyecto
     const [project, setProject] = useState({
@@ -23,9 +23,14 @@ const NewProject = () => {
         });
     };
 
-    // Mostrar/Ocultar formulario
+    // Mostrar formulario
     const showForm = () => {
-        showProjectForm();
+        showProjectForm(true);
+    }
+
+    // Ocultar formulario
+    const hideForm = () => {
+        showProjectForm(false);
     }
 
     // Cuando el usuario desea agregar un nuevo proyecto
@@ -33,11 +38,17 @@ const NewProject = () => {
         e.preventDefault();
 
         // Validar que el campo no este vacio
+        showErrorForm();
+        if(projectName === '') return;
 
         // Agregar al state
-        
-        // Reiniciar el fomulario
+        createProject(project);
 
+        // Reiniciar el fomulario
+        setProject({
+            projectName: '',
+        });
+        showProjectForm(false);
     }
 
     return ( 
@@ -65,9 +76,16 @@ const NewProject = () => {
                         className="btn btn-block btn-primario"
                         value="Agregar"
                     />
+                    <input 
+                        type="button"
+                        className="btn btn-block btn-secundario"
+                        value="Ocultar"
+                        onClick={hideForm}
+                    />
                 </form>)
                 : null 
             }
+            {errorForm ? (<p className="mensaje error">El nombre del proyecto es requerido</p>) : null}
         </Fragment>
      );
 }

@@ -4,10 +4,10 @@ import Task from './Task';
 const ListTasks = () => {
 
     const tasks = [
-        {taskName: "Agregar componentes", status: true},
-        {taskName: "Eliminar componentes", status: false},
-        {taskName: "editar componentes", status: true},
-        {taskName: "Bloquear componentes", status: false},
+        {id: 1, taskName: "Agregar componentes", status: true},
+        {id: 2, taskName: "Eliminar componentes", status: false},
+        {id: 3, taskName: "editar componentes", status: true},
+        {id: 4, taskName: "Bloquear componentes", status: false},
     ]
 
     return ( 
@@ -17,7 +17,8 @@ const ListTasks = () => {
                 {tasks.length === 0 
                     ? (<li className="tarea"><p>Aún no hay tareas</p></li>)
                     : tasks.map( task => (
-                        <Task 
+                        <Task
+                            key={task.id} 
                             task={task}
                         />
                     ))
