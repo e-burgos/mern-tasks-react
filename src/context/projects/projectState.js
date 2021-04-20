@@ -6,7 +6,9 @@ import {
     PROJECT_FORM, 
     GET_PROJECTS,
     CREATE_PROJECT,
-    VALIDATE_ERROR 
+    VALIDATE_ERROR,
+    CURRENT_PROJECT,
+    DESTROY_PROJECT 
 } from '../../types/index';
 
 
@@ -21,7 +23,8 @@ const ProjectState = props => {
     const initialState = {
         projects: [],
         projectForm: false,
-        errorForm: false
+        errorForm: false,
+        project: null
     }; 
 
     // Dispatch para ejecutar las acciones 
@@ -63,16 +66,35 @@ const ProjectState = props => {
         })
     }
 
+    // Obtener el proyecto actual o seleccionado 
+    const getCurrentProject = projectId => {
+        dispatch({
+            type: CURRENT_PROJECT,
+            payload: projectId
+        })
+    }
+
+    // Eliminar un proyecto 
+    const destroyProject = projectId => {
+        dispatch({
+            type: DESTROY_PROJECT,
+            payload: projectId
+        })
+    }
+
     return(
         <projectContext.Provider
             value={{
                 projects: state.projects,
                 projectForm: state.projectForm,
                 errorForm: state.errorForm,
+                project: state.project,
                 showProjectForm,
                 getProjects,
                 createProject,
-                showErrorForm
+                showErrorForm,
+                getCurrentProject,
+                destroyProject,
             }}
         >
             {props.children}

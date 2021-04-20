@@ -14,7 +14,7 @@ const ListProjects = () => {
     },[])
 
     // Validar si no hay proyectos
-    if(projects.length === 0) return null;
+    if(projects.length === 0) return <p className="text-center">No hay proyectos, comienza creando uno.</p>;
 
     return ( 
         <ul className="listado-proyectos">

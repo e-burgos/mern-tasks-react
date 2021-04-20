@@ -3,6 +3,8 @@ import {
     GET_PROJECTS,
     CREATE_PROJECT,
     VALIDATE_ERROR,
+    CURRENT_PROJECT,
+    DESTROY_PROJECT,
     } from '../../types/index';
 
 // eslint-disable-next-line
@@ -28,6 +30,17 @@ export default (state, action) => {
             return {
                 ...state,
                 errorForm: true
+            }
+        case CURRENT_PROJECT:
+            return {
+                ...state,
+                project: state.projects.filter(project => project.id === action.payload)
+            }
+        case DESTROY_PROJECT:
+            return {
+                ...state,
+                projects: state.projects.filter(project => project.id !== action.payload),
+                project: null
             }
         default:
             return state;
