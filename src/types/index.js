@@ -12,4 +12,5 @@ export const CREATE_TASK = 'CREATE_TASK';
 export const VALIDATE_TASK = 'VALIDATE_TASK';
 export const FORM_TASK = 'FORM_TASK';
 export const DESTROY_TASK = 'DESTROY_TASK';
+export const STATUS_TASK = 'STATUS_TASK';
 

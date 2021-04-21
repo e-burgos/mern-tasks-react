@@ -23,7 +23,7 @@ export default (state, action) => {
         case CREATE_PROJECT:
             return {
                 ...state,
-                projects: [...state.projects, action.payload],
+                projects: [action.payload, ...state.projects],
                 errorForm: false
             }
         case VALIDATE_ERROR:

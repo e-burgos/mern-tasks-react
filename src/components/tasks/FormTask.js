@@ -54,10 +54,9 @@ const FormTask = () => {
         //Reiniciar formurio
         setTask({
             taskName: ''
-        })
+        });
+        showFormTask(false);
     }
-
-    
 
     const hideForm = () => {
         showFormTask(false)
@@ -81,20 +80,22 @@ const FormTask = () => {
                                 onChange={onChange}
                             />
                         </div>
-                        <div className="contenedor-input">
-                            <input 
-                                type="submit"
-                                className="btn btn-block btn-primario btn-submit"
-                                value="Agregar Tareas"
-                            />
-                        </div>
-                        <div className="contenedor-input">
-                            <input 
-                                type="button"
-                                className="btn btn-block btn-secundario"
-                                value="Ocultar"
-                                onClick={hideForm} 
-                            />
+                        <div className="row">
+                            <div className="contenedor-input w-50 mr-1">
+                                <input 
+                                    type="submit"
+                                    className="btn btn-block btn-primario btn-submit"
+                                    value="Agregar Tareas"
+                                />
+                            </div>
+                            <div className="contenedor-input w-50 ml-1">
+                                <input 
+                                    type="button"
+                                    className="btn btn-block btn-secundario"
+                                    value="Ocultar"
+                                    onClick={hideForm} 
+                                />
+                            </div>
                         </div>
                     </form>
                     {errorTask ? (<p className="mensaje error">El nombre de la tarea es requerido</p>) : null}
