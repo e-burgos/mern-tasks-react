@@ -137,7 +137,7 @@ aside  {
   color: var(--gris2);
 }
 .proyectos {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 .listado-proyectos li {
   margin-bottom: 2rem;
@@ -152,7 +152,7 @@ aside  {
   display: flex;
   justify-content: space-between;
   background-color: var(--gris2);
-  padding: 4rem;
+  padding: 2rem;
 }
 .nombre-usuario {
   color: var(--blanco);
