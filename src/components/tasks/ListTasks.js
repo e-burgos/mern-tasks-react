@@ -5,13 +5,13 @@ import taskContext from '../../context/tasks/taskContext';
 
 const ListTasks = () => {
 
-    // Extraer si un proyecto esta activo
+    // Extraer el proyecto esta activo
     const projectsContext = useContext(projectContext);
     const { project, destroyProject } = projectsContext;
 
     // Extraemos las tareas del proyecto
     const tasksContext = useContext(taskContext);
-    const { projectTasks } = tasksContext;
+    const { projectTasks, formTask, showFormTask } = tasksContext;
 
     // Verificamos si no hay proyecto seleccionado 
     if(!project) return <h2>Seleccione un proyecto</h2>
@@ -22,11 +22,25 @@ const ListTasks = () => {
     // Eliminar el proyecto actual 
     const destroyCurrentProject = () => {
         destroyProject(currentProject.id)
-    }
+    };
+
+    // Mostrar formulario para agregar tareas
+    const showForm = () => {
+        showFormTask(true)
+    };
 
     return ( 
         <Fragment>
-            <h2>Proyecto: {currentProject.projectName}</h2>
+            <div className="titulo-proyecto">
+                <h2 className="m-0">Proyecto: {currentProject.projectName}</h2>
+                {!formTask ? 
+                    (<input 
+                        type="button"
+                        className="mostrar-tareas"
+                        value="Agregar Tareas"
+                        onClick={showForm}
+                    />) : null}
+            </div>
             <ul className="listado-tareas">
                 {projectTasks === null 
                     ? (<li className="tarea"><p>Aún no hay tareas</p></li>)

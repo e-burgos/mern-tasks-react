@@ -151,6 +151,7 @@ aside  {
 .app-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--gris2);
   padding: 2rem;
 }
@@ -195,11 +196,32 @@ aside  {
 }
 
 /** TAREAS LISTADO **/
+
+.m-0 {
+  margin: 0!important;
+}
+
+.titulo-proyecto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+.mostrar-tareas {
+  font-size: 1.4rem;
+  margin-left: 1.5rem;
+  padding: 0.5rem 2rem;
+  background-color: var(--gris1);
+  font-family: var(--headingFont);
+  font-weight: 400;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gris2) ;
+  transition: background-color .3s ease;
+}
+
 .contenedor-tareas {
   padding: 4rem;
 }
-
-
 
 .listado-tareas {
   max-width: 600px;
