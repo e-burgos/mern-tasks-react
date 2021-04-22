@@ -7,19 +7,22 @@ const Task = ({task}) => {
 
     // Obtener funciones del context de tarea
     const tasksContext = useContext(taskContext);
-    const { destroyTask, getProjectTasks, changeStatusTask } = tasksContext;
+    const { destroyTask, getProjectTasks, changeStatusTask, showFormTask, selectTask } = tasksContext;
 
-    // Extraer el proyecto esta activo
+    // Extraer el state proyecto si esta activo
     const projectsContext = useContext(projectContext);
     const { project } = projectsContext;
 
+    // Aplicar Array destrcturing para extrar el proyecto actual
     const [currentProject] = project;
 
+    // Eliminar una tarea
     const onClickDestroy = () => {
         destroyTask(task.id);
         getProjectTasks(currentProject.id);
     };
 
+    // Cambiar estado de la tarea
     const changeStatus = task => {
         if(task.status) {
             task.status = false;
@@ -27,7 +30,13 @@ const Task = ({task}) => {
             task.status = true;
         }
         changeStatusTask(task);
-    }
+    };
+
+    // Seleccionar una tarea para ser actualizada 
+    const selectUpdateTask = (task) => {
+        showFormTask(true);
+        selectTask(task);
+    };
 
     return ( 
         <li className="tarea sombra">
@@ -50,6 +59,7 @@ const Task = ({task}) => {
                 <button
                     type="button"
                     className="btn btn-primario br-5"
+                    onClick={() => selectUpdateTask(task)}
                 >Editar</button>
                 <button
                     type="button"

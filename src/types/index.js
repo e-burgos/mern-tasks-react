@@ -13,4 +13,8 @@ export const VALIDATE_TASK = 'VALIDATE_TASK';
 export const FORM_TASK = 'FORM_TASK';
 export const DESTROY_TASK = 'DESTROY_TASK';
 export const STATUS_TASK = 'STATUS_TASK';
+export const CURRENT_TASK = 'CURRENT_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const CLEAR_TASK = 'CLEAR_TASK';
+
 

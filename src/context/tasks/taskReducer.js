@@ -4,7 +4,10 @@ import {
     VALIDATE_TASK,
     FORM_TASK,
     DESTROY_TASK,
-    STATUS_TASK
+    STATUS_TASK,
+    CURRENT_TASK,
+    UPDATE_TASK,
+    CLEAR_TASK
 } from '../../types/index';
 
 // eslint-disable-next-line
@@ -36,13 +39,24 @@ export default (state, action) => {
                 ...state,
                 tasks: state.tasks.filter(task => task.id !== action.payload)
             };
+        case UPDATE_TASK:
         case STATUS_TASK:
             return {
                 ...state,
-                tasks: state.tasks.map(task => task.id !== action.payload.id 
+                tasks: state.tasks.map(task => task.id === action.payload.id 
                     ? action.payload
-                    : task )
-
+                    : task ),
+                currentTask: null
+            };
+        case CURRENT_TASK:
+            return {
+                ...state, 
+                currentTask: action.payload
+            };
+        case CLEAR_TASK:
+            return {
+                ...state,
+                currentTask: null
             }
         default: 
             return state;

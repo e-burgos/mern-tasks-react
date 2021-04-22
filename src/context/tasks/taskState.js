@@ -9,6 +9,9 @@ import {
     FORM_TASK,
     DESTROY_TASK,
     STATUS_TASK,
+    CURRENT_TASK,
+    UPDATE_TASK,
+    CLEAR_TASK
  } from '../../types/index';
 
 const TaskState = (props) => {
@@ -24,6 +27,7 @@ const TaskState = (props) => {
         projectTasks: null,
         errorTask: false,
         formTask: false,
+        currentTask: null,
     }
 
     // Crear dispatch y state
@@ -74,7 +78,7 @@ const TaskState = (props) => {
             type: DESTROY_TASK, 
             payload: taskId
         })
-    }
+    };
 
     // Cambiar estado de la tarea 
     const changeStatusTask = task => {
@@ -82,7 +86,30 @@ const TaskState = (props) => {
             type: STATUS_TASK,
             payload: task
         })
-    }
+    };
+
+    // Agregar tarea seleccionada para actualizarla
+    const selectTask = task => {
+        dispatch({
+            type: CURRENT_TASK,
+            payload: task
+        })
+    };
+
+    // Actualizar la tarea seleccionada
+    const updateTask = task => {
+        dispatch({
+            type: UPDATE_TASK,
+            payload: task
+        })
+    };
+
+    // Limpiar tarea actual o seleccionada 
+    const clearTask = () => {
+        dispatch({
+            type: CLEAR_TASK
+        })
+    };
 
     
     return ( 
@@ -92,12 +119,16 @@ const TaskState = (props) => {
                 projectTasks: state.projectTasks,
                 errorTask: state.errorTask,
                 formTask: state.formTask,
+                currentTask: state.currentTask,
                 getProjectTasks,
                 createProjectTask,
                 validateTask,
                 showFormTask,
                 destroyTask,
-                changeStatusTask
+                changeStatusTask,
+                selectTask,
+                updateTask,
+                clearTask
             }}
         >
             {props.children}

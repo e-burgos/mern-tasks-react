@@ -38,7 +38,7 @@ const ListTasks = () => {
                     (<input 
                         type="button"
                         className="mostrar-tareas"
-                        value="Agregar Tareas"
+                        value="Agregar Tarea"
                         onClick={showForm}
                     />) : null}
             </div>

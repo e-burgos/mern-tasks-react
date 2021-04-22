@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import projectContext from '../../context/projects/projectContext';
 import taskContext from '../../context/tasks/taskContext';
 
@@ -10,7 +10,18 @@ const FormTask = () => {
 
     // Extraemos las tareas del proyecto
     const tasksContext = useContext(taskContext);
-    const { errorTask, formTask, createProjectTask, getProjectTasks, validateTask, showFormTask } = tasksContext;
+    const { errorTask, formTask, currentTask, createProjectTask, getProjectTasks, validateTask, showFormTask , clearTask, updateTask} = tasksContext;
+
+    // Effect que detecta si el usuario quiere editar una tarea 
+    useEffect(() => {
+        if(currentTask !== null){
+            setTask(currentTask)
+        } else {
+            setTask({
+                taskName: ''
+            })
+        }
+    }, [currentTask])
 
     // state de tarea 
     const [task, setTask] = useState({
@@ -35,7 +46,7 @@ const FormTask = () => {
         })
     }
 
-    // agregamos una nueva tarea al proyecto actual 
+    // Agregamos una nueva tarea al proyecto actual 
     const onSubmitTask = e => {
         e.preventDefault();
 
@@ -44,22 +55,31 @@ const FormTask = () => {
             validateTask(); 
             return;
         }; 
-        
-        // Agregar tarea al state general
-        createProjectTask(projectSelected.id, taskName);
 
-        // Filtar y mostrar tareas
-        getProjectTasks(projectSelected.id);
+        if(currentTask === null){
+            createProjectTask(projectSelected.id, taskName); // Agregar tarea al state general
+            getProjectTasks(projectSelected.id); // Filtrar y mostrar tareas
+        } else {
+            updateTask(task);
+            getProjectTasks(projectSelected.id); // Filtrar y mostrar tareas
+        }
 
         //Reiniciar formurio
         setTask({
             taskName: ''
         });
         showFormTask(false);
+        clearTask();
     }
 
+    // Ocultar formulario de tarea
     const hideForm = () => {
-        showFormTask(false)
+        showFormTask(false); 
+        clearTask(); // Limpiar tarea actual
+        //Reiniciar formurio
+        setTask({
+            taskName: ''
+        });
     }
 
 
@@ -85,7 +105,7 @@ const FormTask = () => {
                                 <input 
                                     type="submit"
                                     className="btn btn-block btn-primario btn-submit"
-                                    value="Agregar Tareas"
+                                    value={currentTask ? "Editar Tarea" : "Agregar Tarea"}
                                 />
                             </div>
                             <div className="contenedor-input w-50 ml-1">
