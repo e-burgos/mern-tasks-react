@@ -403,10 +403,10 @@ aside  {
 }
 
 .alerta-ok {
-  background-color: rgb(109, 211, 109);
+  background-color: rgba(109, 211, 109, 0.808);
   color: rgb(2, 103, 2);
 }
 .alerta-error {
-  background-color: red;
+  background-color: rgba(212, 71, 71, 0.829);;
   color: var(--blanco);
 }
