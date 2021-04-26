@@ -28,6 +28,7 @@ const Login = (props) => {
         if(msg){
             showAlert(msg.msg, msg.category);
         };
+        // eslint-disable-next-line
     }, [msg, auth, props.history])
 
     // Extraer de usuario

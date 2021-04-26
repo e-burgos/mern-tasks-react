@@ -3,6 +3,7 @@ import {
     HIDE_ALERT
     } from '../../types/index';
 
+// eslint-disable-next-line   
 export default (state, action) => {
     switch(action.type){
         case SHOW_ALERT:

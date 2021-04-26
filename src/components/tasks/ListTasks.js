@@ -1,20 +1,11 @@
-import React, { Fragment, useContext, useEffect } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Task from './Task';
 import projectContext from '../../context/projects/projectContext';
 import alertContext from '../../context/alerts/alertContext';
 import taskContext from '../../context/tasks/taskContext';
-import AuthContext from '../../context/auth/authContext';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const ListTasks = () => {
-
-    // Mantemenos el context de autetificacion
-    const authContext = useContext(AuthContext);
-    const { authUser } = authContext;
-    
-    useEffect(() => {
-        authUser();
-    }, [])
 
     // Extraer el proyecto esta activo
     const projectsContext = useContext(projectContext);
@@ -37,7 +28,7 @@ const ListTasks = () => {
     // Eliminar el proyecto actual 
     const destroyCurrentProject = () => {
         destroyProject(currentProject._id);
-        showAlert('Proyecto eiminado correctamente', 'alerta-ok');
+        showAlert('Proyecto eliminado permanentemente', 'alerta-error');
     };
 
     // Mostrar formulario para agregar tareas

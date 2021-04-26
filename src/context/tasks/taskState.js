@@ -73,8 +73,7 @@ const TaskState = (props) => {
     // Eliminar tarea
     const destroyTask = async (taskId, projectId) => {
         try {
-            const response = await axiosClient.delete(`/api/tasks/${taskId}`, {params: {projectId}})
-            //console.log(response)
+            await axiosClient.delete(`/api/tasks/${taskId}`, {params: {projectId}})
             dispatch({
                 type: DESTROY_TASK, 
                 payload: taskId

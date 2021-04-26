@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import taskContext from '../../context/tasks/taskContext';
 import projectContext from '../../context/projects/projectContext';
 
