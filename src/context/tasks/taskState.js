@@ -1,7 +1,7 @@
 import React, { useReducer} from 'react';
 import TaskContext from './taskContext';
 import TaskReducer from './taskReducer';
-import {v4 as uuid} from 'uuid';
+import axiosClient from '../../config/axios';
 import { 
     PROJECT_TASKS, 
     CREATE_TASK,
@@ -18,13 +18,7 @@ const TaskState = (props) => {
     
     // Definir state inicial
     const initialState = {
-        tasks: [
-            {id: 1, taskName: "Agregar componentes", status: true, projectId: 1},
-            {id: 2, taskName: "Eliminar componentes", status: false, projectId: 1},
-            {id: 3, taskName: "editar componentes", status: true, projectId: 2},
-            {id: 4, taskName: "Bloquear componentes", status: false, projectId: 3},
-        ],
-        projectTasks: null,
+        projectTasks: [],
         errorTask: false,
         formTask: false,
         currentTask: null,
@@ -36,32 +30,36 @@ const TaskState = (props) => {
     //******** Serie de funciones para el CRUD de tareas ********//
     
     // Filtrar las tareas del proyecto seleccionado 
-    const getProjectTasks = projectId => {
+    const getProjectTasks = async projectId => {
+        try {
+            const response = await axiosClient.get('/api/tasks', { params: {projectId} });
         dispatch({
-            type: PROJECT_TASKS,
-            payload: projectId
-        })
+                type: PROJECT_TASKS,
+                payload: response.data.tasks
+            });
+        } catch (error) {
+            console.log(error);
+        };
     };
 
     // Agregar una tarea al proyecto actual  
-    const createProjectTask = (projectId, taskName) => {
-        const task = {
-            id: uuid(),
-            taskName: taskName,
-            status: false,
-            projectId: projectId
+    const createProjectTask = async (projectId, taskName) => {
+        try {
+            const response = await axiosClient.post('/api/tasks', {projectId, taskName});
+            dispatch({
+                type: CREATE_TASK,
+                payload: response.data.task
+            }) 
+        } catch (error) {
+            console.log(error.response.data.errors)
         }
-        dispatch({
-            type: CREATE_TASK,
-            payload: task
-        })
     };
     
     // Validar errores 
     const validateTask = () => {
         dispatch({
             type: VALIDATE_TASK,
-        })
+        });
     };
 
     // Ocultar/Mostrar formulario de tareas
@@ -69,23 +67,35 @@ const TaskState = (props) => {
         dispatch({
             type: FORM_TASK,
             payload: condition
-        })
+        });
     };
 
     // Eliminar tarea
-    const destroyTask = taskId => {
-        dispatch({
-            type: DESTROY_TASK, 
-            payload: taskId
-        })
+    const destroyTask = async (taskId, projectId) => {
+        try {
+            const response = await axiosClient.delete(`/api/tasks/${taskId}`, {params: {projectId}})
+            //console.log(response)
+            dispatch({
+                type: DESTROY_TASK, 
+                payload: taskId
+            })
+        } catch (error) {
+            console.log(error.response.data)
+        };
     };
 
     // Cambiar estado de la tarea 
-    const changeStatusTask = task => {
-        dispatch({
-            type: STATUS_TASK,
-            payload: task
-        })
+    const changeStatusTask = async task => {
+        try {
+            const response = await axiosClient.put(`/api/tasks/${task._id}`, task);
+            //console.log(response)
+            dispatch({
+                type: STATUS_TASK,
+                payload: response.data.task
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        };
     };
 
     // Agregar tarea seleccionada para actualizarla
@@ -93,29 +103,34 @@ const TaskState = (props) => {
         dispatch({
             type: CURRENT_TASK,
             payload: task
-        })
+        });
     };
 
     // Actualizar la tarea seleccionada
-    const updateTask = task => {
-        dispatch({
-            type: UPDATE_TASK,
-            payload: task
-        })
+    const updateTask = async task => {
+        try {
+            const response = await axiosClient.put(`/api/tasks/${task._id}`, task);
+            //console.log(response)
+            dispatch({
+                type: UPDATE_TASK,
+                payload: response.data.task
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        };
     };
 
     // Limpiar tarea actual o seleccionada 
     const clearTask = () => {
         dispatch({
             type: CLEAR_TASK
-        })
+        });
     };
 
     
     return ( 
         <TaskContext.Provider
             value={{
-                tasks: state.tasks,
                 projectTasks: state.projectTasks,
                 errorTask: state.errorTask,
                 formTask: state.formTask,

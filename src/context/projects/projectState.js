@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import projectContext from './projectContext';
 import projectReducer from './projectReducer';
-import {v4 as uuid} from 'uuid';
+import axiosClient from '../../config/axios';
 import { 
     PROJECT_FORM, 
     GET_PROJECTS,
@@ -14,11 +14,11 @@ import {
 
 const ProjectState = props => {
     
-    const projects = [
-            {id: 1, projectName: 'Tienda virtual'},
-            {id: 2, projectName: 'Dashboards'},
-            {id: 3, projectName: 'Bufus'},
-        ];
+    // const projects = [
+    //         {id: 1, projectName: 'Tienda virtual'},
+    //         {id: 2, projectName: 'Dashboards'},
+    //         {id: 3, projectName: 'Bufus'},
+    //     ];
     
     const initialState = {
         projects: [],
@@ -41,22 +41,31 @@ const ProjectState = props => {
     }
 
     // Obtener proyectos
-    const getProjects = () => {
-        dispatch({
-            type: GET_PROJECTS,
-            payload: projects
-        })
+    const getProjects = async () => {
+        try {
+            const response = await axiosClient.get('/api/projects')
+            dispatch({
+                type: GET_PROJECTS,
+                payload: response.data.projects
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Agregar un nuevo proyecto
-    const createProject = project => {
-        project.id = uuid();
-
-        // Agregamos el proyecto al listado de proyectos
-        dispatch({
-            type: CREATE_PROJECT,
-            payload: project
-        })
+    const createProject = async (data) => {
+        try {
+            // Agregamos el proyecto al listado de proyectos
+            const response = await axiosClient.post('/api/projects', data)
+            dispatch({
+                type: CREATE_PROJECT,
+                payload: response.data.project
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     // Validar errores en el formulario
@@ -75,11 +84,16 @@ const ProjectState = props => {
     }
 
     // Eliminar un proyecto 
-    const destroyProject = projectId => {
-        dispatch({
-            type: DESTROY_PROJECT,
-            payload: projectId
-        })
+    const destroyProject = async (projectId) => {
+        try {
+            await axiosClient.delete(`/api/projects/${projectId}`)
+            dispatch({
+                type: DESTROY_PROJECT,
+                payload: projectId
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return(

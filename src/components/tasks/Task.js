@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import taskContext from '../../context/tasks/taskContext';
 import projectContext from '../../context/projects/projectContext';
-
 
 const Task = ({task}) => {
 
@@ -18,8 +17,8 @@ const Task = ({task}) => {
 
     // Eliminar una tarea
     const onClickDestroy = () => {
-        destroyTask(task.id);
-        getProjectTasks(currentProject.id);
+        destroyTask(task._id, currentProject._id);
+        getProjectTasks(currentProject._id);
     };
 
     // Cambiar estado de la tarea

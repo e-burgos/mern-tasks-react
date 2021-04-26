@@ -57,11 +57,11 @@ const FormTask = () => {
         }; 
 
         if(currentTask === null){
-            createProjectTask(projectSelected.id, taskName); // Agregar tarea al state general
-            getProjectTasks(projectSelected.id); // Filtrar y mostrar tareas
+            createProjectTask(projectSelected._id, taskName); // Agregar tarea al state general
+            getProjectTasks(projectSelected._id); // Filtrar y mostrar tareas
         } else {
             updateTask(task);
-            getProjectTasks(projectSelected.id); // Filtrar y mostrar tareas
+            getProjectTasks(projectSelected._id); // Filtrar y mostrar tareas
         }
 
         //Reiniciar formurio

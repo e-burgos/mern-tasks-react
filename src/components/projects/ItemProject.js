@@ -14,8 +14,8 @@ const ItemProject = ({project}) => {
 
     // Obtener proyecto actual al hacer click en un proyecto del listado
     const getProject = () => {
-        getProjectTasks(project.id)
-        getCurrentProject(project.id)
+        getProjectTasks(project._id)
+        getCurrentProject(project._id)
     }
 
     return ( 
